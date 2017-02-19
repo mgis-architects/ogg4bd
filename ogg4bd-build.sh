@@ -15,6 +15,7 @@
 # docs:    http://docs.oracle.com/goldengate/bd123010/gg-bd/index.html
 # install: http://docs.oracle.com/goldengate/bd123010/gg-bd/GBDIG/toc.htm
 # useful:
+#          https://blogs.oracle.com/dataintegration/entry/goldengate_for_big_data_121
 #          https://www.pythian.com/blog/goldengate-12-2-big-data-adapters-part-1-hdfs/
 #          https://www.pythian.com/blog/goldengate-12-2-big-data-adapters-part-2-flume
 #          https://www.pythian.com/blog/goldengate-12-2-big-data-adapters-part-3-kafka/
@@ -168,7 +169,7 @@ installOgg4bd()
        CREATE SUBDIRS 
 EOFggsci1
 
-    echo "PORT 7801" > ${l_installdir}/dirprm/mgr.prm
+    echo "PORT 7802" > ${l_installdir}/dirprm/mgr.prm
     
     ./ggsci  << EOFggsci2
         START MGR 
