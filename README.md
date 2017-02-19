@@ -12,7 +12,7 @@ Staged binaries on Azure File storage in the following directories
 
 * /mnt/software/ogg4bd12301/V839824-01.zip
 
-### Step 1 Prepare oracledb build
+### Step 1 Prepare ogg4bd build
 
 git clone https://github.com/mgis-architects/ogg4bd
 
