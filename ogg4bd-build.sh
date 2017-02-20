@@ -112,13 +112,13 @@ function mountMedia() {
 
         l_str=""
         if [ -z $mediaStorageAccountKey ]; then
-            l_str=$l_str || "mediaStorageAccountKey not found in $INI_FILE; "
+            l_str+="mediaStorageAccountKey not found in $INI_FILE; "
         fi
         if [ -z $mediaStorageAccount ]; then
-            l_str=$l_str || "mediaStorageAccount not found in $INI_FILE; "
+            l_str+="mediaStorageAccount not found in $INI_FILE; "
         fi
         if [ -z $mediaStorageAccountURL ]; then
-            l_str=$l_str || "mediaStorageAccountURL not found in $INI_FILE; "
+            l_str+="mediaStorageAccountURL not found in $INI_FILE; "
         fi
         if ! [ -z $l_str ]; then
             fatalError "mountMedia(): $l_str"
