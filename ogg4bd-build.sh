@@ -90,7 +90,7 @@ function oracleProfile()
     cat >> /home/oracle/.bash_profile << EOForacleProfile
     export JAVA_HOME=/usr/lib/jvm
     export LD_LIBRARY_PATH=\$JAVA_HOME/jre/lib/amd64/server:$LD_LIBRARY_PATH
-    export PATH=$PATH:/u01/app/oracle/product/12.3.0/ogg4bd
+    #export PATH=$PATH:/u01/app/oracle/product/12.3.0/ogg4bd
 EOForacleProfile
 }
 
