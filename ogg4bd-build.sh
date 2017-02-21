@@ -89,7 +89,7 @@ function oracleProfile()
 {
     cat >> /home/oracle/.bash_profile << EOForacleProfile
     export JAVA_HOME=/usr/lib/jvm
-    export LD_LIBRARY_PATH=$JAVA_HOME/jre/lib/amd64/server:$LD_LIBRARY_PATH
+    export LD_LIBRARY_PATH=\$JAVA_HOME/jre/lib/amd64/server:$LD_LIBRARY_PATH
     export PATH=$PATH:/u01/app/oracle/product/12.3.0/ogg4bd
 EOForacleProfile
 }
@@ -169,7 +169,7 @@ installOgg4bd()
        CREATE SUBDIRS 
 EOFggsci1
 
-    echo "PORT 7802" > ${l_installdir}/dirprm/mgr.prm
+    echo "PORT ${ogg4bdMgrPort}" > ${l_installdir}/dirprm/mgr.prm
     
     ./ggsci  << EOFggsci2
         START MGR 
@@ -196,6 +196,16 @@ function run()
         fatalError "$g_prog.run(): platformEnvironment=AZURE is the only valid setting currently"
     fi
 
+    eval `grep ogg4bdMgrPort $INI_FILE`
+
+    l_str=""
+    if [ -z $ogg4bdMgrPort ]; then
+        l_str+="ogg4bdMgrPort not found in $INI_FILE; "
+    fi
+    if ! [ -z $l_str ]; then
+        fatalError "installSimpleSchema(): $l_str"
+    fi
+    
     # function calls
     installRPMs
     oracleProfile
