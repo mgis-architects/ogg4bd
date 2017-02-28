@@ -19,6 +19,7 @@
 #          https://www.pythian.com/blog/goldengate-12-2-big-data-adapters-part-1-hdfs/
 #          https://www.pythian.com/blog/goldengate-12-2-big-data-adapters-part-2-flume
 #          https://www.pythian.com/blog/goldengate-12-2-big-data-adapters-part-3-kafka/
+#          https://java.net/downloads/oracledi/GoldenGate/Oracle%20GoldenGate%20Adapter%20for%20Kafka%20Connect/OGG_Kafka_Connect.pdf
 #
 #########################################################################################
 
@@ -148,6 +149,10 @@ installOgg4bd()
     local l_installdir=/u01/app/oracle/product/12.3.0/ogg4bd
     local l_media=/mnt/software/ogg4bd12301/V839824-01.zip
     local l_tmp_script=$LOG_DIR/$g_prog.installOgg4bd.$$.sh
+    local l_log=$LOG_DIR/$g_prog.ogg4bdTestSuite.$$.installOgg4bd.log
+    
+    cat > $l_tmp_script << EOFckp
+
 
     if [ ! -f ${l_media} ]; then
         fatalError "installGridHome(): media missing ${l_media}"
@@ -183,8 +188,24 @@ EOFggsci2
 
 EOFogg4bd
 
-    su - oracle -c "bash -x $l_tmp_script" |tee ${l_oracleinstall_log}
+    su - oracle -c "bash -x $l_tmp_script" |tee ${l_log}
 
+}
+
+function() installKakfaConnect
+{
+    local l_tmp_script=$LOG_DIR/$g_prog.installKafkaConnect.$$.sh
+    local l_log=$LOG_DIR/$g_prog.installKafkaConnect.$$.log
+
+    yum -y install wget
+    
+    cat > $l_tmp_script << EOFkch
+    wget -O /tmp/OGG_KafkaConnectHandlerFormatter1.0.tar https://java.net/projects/oracledi/downloads/download/GoldenGate/Oracle%20GoldenGate%20Adapter%20for%20Kafka%20Connect/OGG_KafkaConnectHandlerFormatter1.0.tar
+    cd /u01
+    tar xf /tmp/OGG_KafkaConnectHandlerFormatter1.0.tar
+EOFkch
+
+    su - oracle -c "bash -x $l_tmp_script" |tee ${l_log}
 }
 
 function run()
@@ -211,6 +232,7 @@ function run()
     oracleProfile
     mountMedia
     installOgg4bd
+    installKakfaConnect
 }
 
 
