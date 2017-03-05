@@ -182,8 +182,8 @@ function makeFolders()
 {
     local l_error=0
     if ! mkdir -p /u01/app/oracle; then l_error=1; fi
-    if ! chown oracle:oinstall /u01/app/oracle; then l_error=1; fi
-    if ! chmod -R 775 /u01/; then l_error=1; fi
+    if ! chown -R oracle:oinstall /u01; then l_error=1; fi
+    if ! chmod -R 775 /u01; then l_error=1; fi
     if [ $l_error -eq 1 ]; then
         fatalError "makeFolders(): error creating folders"
     fi
@@ -441,6 +441,7 @@ function openFirewall() {
     firewall-cmd --zone=public --add-port=${ogg4bdMgrPort}/tcp --permanent
     firewall-cmd --zone=public --add-port=${ogg4bdMgrPortRange}/tcp --permanent
     firewall-cmd --reload
+    firewall-cmd --zone=public --list-all
 }
 
 function run()
