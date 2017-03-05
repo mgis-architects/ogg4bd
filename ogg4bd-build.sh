@@ -437,6 +437,12 @@ EOFrepo
     sudo yum -y install confluent-platform-2.11
 }
 
+function openFirewall() {
+    firewall-cmd --zone=public --add-port=${ogg4bdMgrPort}/tcp --permanent
+    firewall-cmd --zone=public --add-port=${ogg4bdMgrPortRange}/tcp --permanent
+    firewall-cmd --reload
+}
+
 function run()
 {
     eval `grep platformEnvironment $INI_FILE`
@@ -447,6 +453,7 @@ function run()
     fi
 
     eval `grep ogg4bdMgrPort $INI_FILE`
+    eval `grep ogg4bdMgrPortRange $INI_FILE`
     eval `grep ogg4bdHome $INI_FILE`
     eval `grep u01_Disk_Size_In_GB $INI_FILE`
     eval `grep ogg4bdMedia $INI_FILE`
@@ -454,6 +461,9 @@ function run()
     l_str=""
     if [ -z $ogg4bdMgrPort ]; then
         l_str+="ogg4bdMgrPort not found in $INI_FILE; "
+    fi
+    if [ -z $ogg4bdMgrPortRange ]; then
+        l_str+="ogg4bdMgrPortRange not found in $INI_FILE; "
     fi
     if [ -z $ogg4bdHome ]; then
         l_str+="ogg4bdHome not found in $INI_FILE; "
@@ -484,6 +494,7 @@ function run()
     installOgg4bd
     installKakfaConnect
     installConfluent
+    openFirewall
 }
 
 
