@@ -369,7 +369,8 @@ installOgg4bd()
 EOFggscia
 
     echo "PORT ${ogg4bdMgrPort}" > ${l_installdir}/dirprm/mgr.prm
-    
+    echo "DYNAMICPORTLIST ${ogg4bdMgrPortRange} >>  ${l_installdir}/dirprm/mgr.prm
+
     ./ggsci  << EOFggscib
         START MGR 
 EOFggscib
