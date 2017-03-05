@@ -74,7 +74,7 @@ function installRPMs()
     INSTALL_RPM_LOG=$LOG_DIR/yum.${g_prog}_install.log.$$
 
     STR=""
-    STR="$STR java-1.8.0-openjdk.x86_64"
+    STR="$STR java-1.8.0-openjdk.x86_64 cifs-utils"
     
     yum makecache fast
     
