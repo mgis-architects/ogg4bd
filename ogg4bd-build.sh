@@ -203,7 +203,7 @@ EOForacleProfile1
     export EDITOR=vi
     export TMP=/tmp
     export TMPDIR=/tmp
-    export OGG_HOME=${oggHome}
+    export OGG_HOME=${ogg4bdHome}
     export JAVA_HOME=/usr/lib/jvm
     export LD_LIBRARY_PATH=\$JAVA_HOME/jre/lib/amd64/server:$LD_LIBRARY_PATH
     export PATH=$PATH:${ogg4bdHome}
