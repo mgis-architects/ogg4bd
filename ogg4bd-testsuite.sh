@@ -112,7 +112,7 @@ gg.log=log4j
 gg.log.level=INFO
 gg.report.time=30sec
 # /usr/share/java/kafka-connect-hdfs/ has everything in it
-gg.classpath=dirprm/:${ogg4bdHome}/ogg4bd/ggjava/resources/lib/*:/usr/share/java/kafka/*:/u01/kafka-connect/bin/ogg-kafka-connect-1.0.jar:/usr/share/java/kafka-connect-hdfs/*
+gg.classpath=dirprm/:${ogg4bdHome}/ggjava/resources/lib/*:/usr/share/java/kafka/*:/u01/kafka-connect/bin/ogg-kafka-connect-1.0.jar:/usr/share/java/kafka-connect-hdfs/*
 javawriter.bootoptions=-Xmx2048m -Xms512m -Djava.class.path=.:./ggjava/ggjava.jar:./dirprm
 EOFcp1
 
@@ -199,7 +199,7 @@ REPLICAT rconflt1
 TARGETDB LIBFILE libggjava.so SET property=${ogg4bdHome}/dirprm/conf.props
 REPORTCOUNT EVERY 1 MINUTES, RATE
 GROUPTRANSOPS 10000
-MAP ${pdbName}.ade.*, TARGET *.*.*;
+MAP ${pdbName}.ade.*, TARGET bd.*;
 EOFrk1
 
 EOFrk
