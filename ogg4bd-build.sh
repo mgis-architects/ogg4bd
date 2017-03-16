@@ -407,7 +407,7 @@ EOFkch
 
 function installConfluent() 
 {
-    confluentVersion=3.0
+    # confluentVersion=3.0
     # confluentVersion=3.1
 
     # http://docs.confluent.io/3.0.1/installation.html
@@ -459,6 +459,7 @@ function run()
     eval `grep ogg4bdHome $INI_FILE`
     eval `grep u01_Disk_Size_In_GB $INI_FILE`
     eval `grep ogg4bdMedia $INI_FILE`
+    eval `grep confluentVersion $INI_FILE`
 
     l_str=""
     if [ -z $ogg4bdMgrPort ]; then
@@ -476,6 +477,9 @@ function run()
     fi
     if [ -z $ogg4bdMedia ]; then
         l_str+="asmStorage(): ogg4bdMedia not found in $INI_FILE; "
+    fi
+    if [ -z $confluentVersion ]; then
+        l_str+="asmStorage(): confluentVersion not found in $INI_FILE; "
     fi
     if ! [ -z $l_str ]; then
         fatalError "$g_prog(): $l_str"
