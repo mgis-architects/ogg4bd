@@ -396,11 +396,12 @@ function installKakfaConnect()
     
     cat > $l_tmp_script << EOFkch
     wget -O /tmp/OGG_KafkaConnectHandlerFormatter1.0.tar https://java.net/projects/oracledi/downloads/download/GoldenGate/Oracle%20GoldenGate%20Adapter%20for%20Kafka%20Connect/OGG_KafkaConnectHandlerFormatter1.0.tar
-    cd /u01
+    mkdir -p /u01/app
+    cd /u01/app
     tar xf /tmp/OGG_KafkaConnectHandlerFormatter1.0.tar
 EOFkch
 
-    cp /u01/kafka-connect/bin/ogg-kafka-connect-1.0.jar ${ogg4bdHome}/ggjava/resources/lib
+    cp /u01/app/kafka-connect/bin/ogg-kafka-connect-1.0.jar ${ogg4bdHome}/ggjava/resources/lib
     
     su - oracle -c "bash -x $l_tmp_script" |tee ${l_log}
 }
