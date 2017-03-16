@@ -94,7 +94,7 @@ function confluentProps() {
 gg.handlerlist=confluent
 gg.handler.confluent.type=oracle.goldengate.kafkaconnect.KafkaConnectHandler
 gg.handler.confluent.kafkaProducerConfigFile=confluent.properties
-gg.handler.confluent.mode=tx
+gg.handler.confluent.mode=op
 gg.handler.confluent.sourceRecordGeneratorClass=oracle.goldengate.kafkaconnect.DefaultSourceRecordGenerator
 gg.handler.confluent.format=oracle.goldengate.kafkaconnect.formatter.KafkaConnectFormatter
 gg.handler.confluent.format.insertOpKey=I
@@ -139,8 +139,19 @@ schema.registry.url=${schemaRegistry}
 #
 value.serializer=org.apache.kafka.common.serialization.ByteArraySerializer
 key.serializer=org.apache.kafka.common.serialization.ByteArraySerializer
-value.converter=org.apache.kafka.connect.json.JsonConverter
-key.converter=org.apache.kafka.connect.json.JsonConverter
+#
+#####
+# stick to avro
+key.converter=io.confluent.connect.avro.AvroConverter
+value.converter=io.confluent.connect.avro.AvroConverter
+key.converter.schema.registry.url=${schemaRegistry}
+value.converter.schema.registry.url=${schemaRegistry}
+#
+# original values
+# 	value.converter=org.apache.kafka.connect.json.JsonConverter
+# 	key.converter=org.apache.kafka.connect.json.JsonConverter
+#####
+#
 internal.value.converter=org.apache.kafka.connect.json.JsonConverter
 internal.key.converter=org.apache.kafka.connect.json.JsonConverter
 EOFcprop1
@@ -163,13 +174,13 @@ function irconflt() {
     cat > irconflt.prm << EOFrk1
 SPECIALRUN
 END RUNTIME
-EXTFILE ${ogg4bdHome}/dirdat/initld
+EXTFILE ${ogg4bdHome}/dirdat/a1initld
 --
 TARGETDB LIBFILE libggjava.so SET property=dirprm/conflt.props
 SOURCECHARSET AL32UTF8
 REPORTCOUNT EVERY 1 MINUTES, RATE
 GROUPTRANSOPS 10000
-MAP ${pdbName}.ade.*, TARGET bd.*;
+MAP ${pdbName}.ade.*, TARGET avro1.*;
 EOFrk1
 
 # cd ${ogg4bdHome}
@@ -187,7 +198,6 @@ function rconflt1() {
     local l_tmp_script=$LOG_DIR/$g_prog.ogg4bdTestSuite.$$.${l_function_name}.sh
     local l_log=$LOG_DIR/$g_prog.ogg4bdTestSuite.$$.${l_function_name}.log
     
-    
     cat > $l_tmp_script << EOFrk
 
     cd ${ogg4bdHome}/dirprm
@@ -195,11 +205,11 @@ function rconflt1() {
     cat > rconflt1.prm << EOFrk1
 REPLICAT rconflt1
 -- Command to add REPLICAT
--- add replicat rconflt1, exttrail ${ogg4bdHome}/dirdat/ss
+-- add replicat rconflt1, exttrail ${ogg4bdHome}/dirdat/a1
 TARGETDB LIBFILE libggjava.so SET property=${ogg4bdHome}/dirprm/conf.props
 REPORTCOUNT EVERY 1 MINUTES, RATE
 GROUPTRANSOPS 10000
-MAP ${pdbName}.ade.*, TARGET bd.*;
+MAP ${pdbName}.ade.*, TARGET avro1.*;
 EOFrk1
 
 EOFrk
