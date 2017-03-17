@@ -206,7 +206,7 @@ function rconflt1() {
 REPLICAT rconflt1
 -- Command to add REPLICAT
 -- add replicat rconflt1, exttrail ${ogg4bdHome}/dirdat/a1
-TARGETDB LIBFILE libggjava.so SET property=${ogg4bdHome}/dirprm/conf.props
+TARGETDB LIBFILE libggjava.so SET property=${ogg4bdHome}/dirprm/conflt.props
 REPORTCOUNT EVERY 1 MINUTES, RATE
 GROUPTRANSOPS 10000
 MAP ${pdbName}.ade.*, TARGET avro1.*;
